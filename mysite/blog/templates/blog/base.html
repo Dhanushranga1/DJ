@@ -3,7 +3,55 @@
 <html lang="en">
 <head>
     <title>{% block title %}{% endblock %}</title>
-    <link href = "{%  static "css/blog.css" %}" rel= "stylesheet" >
+    <style>
+        /* blog.css */
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+
+        #content {
+          padding: 20px;
+        }
+
+        #sidebar {
+          background-color: #f2f2f2;
+          padding: 20px;
+          text-align: center;
+        }
+
+        #sidebar h2 {
+          margin-top: 0;
+        }
+
+        /* Additional styles for the post content */
+        .date {
+          color: #666;
+          font-style: italic;
+        }
+
+        h1, h2 {
+          margin-top: 0;
+        }
+
+        h2 a {
+          color: #333;
+          text-decoration: none;
+        }
+
+        h2 a:hover {
+          color: #000;
+        }
+
+        p.date {
+          margin-bottom: 10px;
+        }
+
+        p.body {
+          margin-top: 0;
+        }
+    </style>
 </head>
     <body>
         <div id = "content">
