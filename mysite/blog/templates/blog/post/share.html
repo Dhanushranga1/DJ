@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+{% block title %} Share a Post{% endblock %}
+
+{% block content %}
+<div class="share-container">
+    {% if sent %}
+        <div class="success-message">
+            <h1>Success!</h1>
+            <p>
+                Your email has been successfully sent!<br>
+                "<strong>{{ post.title }}</strong>" was sent to <strong>{{ form.cleaned_data.to }}</strong>.
+            </p>
+            <a href="{{ post.get_absolute_url }}" class="btn-back">Back to Post</a>
+        </div>
+    {% else %}
+        <h1>Share "<strong>{{ post.title }}</strong>" via Email</h1>
+        <p class="share-intro">
+            Want to share this post with a friend? Just fill in their details below.
+        </p>
+        <form method="post" class="email-form">
+{#            {{ form.as_p }}#}
+            {% for field in form %}
+                <div class="form-group">
+                {{ field.errors}}
+                {{ field.label_tag }}{{ field }}
+                <div class="help-text">{{ field.help_text }}</div>
+                </div>
+            {% endfor %}
+
+            {% csrf_token %}
+            <input type="submit" value="Send Email" class="btn-submit">
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

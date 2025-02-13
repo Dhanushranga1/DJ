@@ -1,66 +1,24 @@
 {% load static %}
+{% load blog_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <style>
-        /* blog.css */
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-        }
-
-        #content {
-          padding: 20px;
-        }
-
-        #sidebar {
-          background-color: #f2f2f2;
-          padding: 20px;
-          text-align: center;
-        }
-
-        #sidebar h2 {
-          margin-top: 0;
-        }
-
-        /* Additional styles for the post content */
-        .date {
-          color: #666;
-          font-style: italic;
-        }
-
-        h1, h2 {
-          margin-top: 0;
-        }
-
-        h2 a {
-          color: #333;
-          text-decoration: none;
-        }
-
-        h2 a:hover {
-          color: #000;
-        }
-
-        p.date {
-          margin-bottom: 10px;
-        }
-
-        p.body {
-          margin-top: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'blog/blog.css' %}">
 </head>
-    <body>
-        <div id = "content">
+<body>
+    <div class="container">
+        <div id="content">
             {% block content %}
             {% endblock %}
         </div>
-    <div id = "sidebar">
-    <h2> My blog</h2>
-    <p> This is my blog</p>
-</div>
+        <div id="sidebar">
+            <h2>My Blog</h2>
+            <p>Stay updated with the latest posts!</p>
+            <p>I've written {%  total_posts %} posts so far.</p>
+        </div>
+    </div>
 </body>
 </html>

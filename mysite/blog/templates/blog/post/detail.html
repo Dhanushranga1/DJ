@@ -1,13 +1,47 @@
-{%  extends "blog/base.html" %}
+{% extends "blog/base.html" %}
 
-{%  block title %} {{post.title }}{{%endblock%} }
+{% block title %}{{ post.title }}{% endblock %}
 
-{%  block content %}
-<h1>
-    {{post.title}}}
-</h1>
-<p class ="date" >
-    Published {{ post.publish }} by{{ post.author}}
-</p>
-{{post.body|linebreaks}}
+{% block content %}
+    <div class="post-detail">
+        <h1 class="post-title">{{ post.title }}</h1>
+        <p class="date">
+            Published on {{ post.publish|date:"F j, Y" }} by {{ post.author }}
+        </p>
+        <div class="post-content">
+            {{ post.body|linebreaks }}
+        </div>
+        <div class="post-share">
+            <a href="{% url 'blog:post_share' post.id %}" class="share-link">Share this post</a>
+        </div>
+
+        <h2>Similar posts</h2>
+        <div class="similar-posts">
+            {% for similar_post in similar_posts %}
+                <p>
+                    <a href="{{ similar_post.get_absolute_url }}">{{ similar_post.title }}</a>
+                </p>
+            {% empty %}
+                <p>There are no similar posts yet.</p>
+            {% endfor %}
+        </div>
+
+        <div class="post-comments">
+            {% with comments.count as total_comments %}
+                <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+            {% endwith %}
+            {% for comment in comments %}
+                <div class="comment">
+                    <p class="info">
+                        Comment {{ forloop.counter }} by {{ comment.author }} on
+                        {{ comment.created_at|date:"F j, Y, g:i a" }}
+                    </p>
+                    <div class="comment-body">{{ comment.body|linebreaks }}</div>
+                </div>
+            {% empty %}
+                <p>There are no comments. Be the first to comment!</p>
+            {% endfor %}
+            {% include "blog/post/includes/comment_form.html" %}
+        </div>
+    </div>
 {% endblock %}

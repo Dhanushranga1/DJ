@@ -1,6 +1,17 @@
-<h2>ADD A NEW COMMENT</h2>
-<form action="{%  url "blog:post_comment" post.id %}" method="post">
-    {{ form.as_p}}
+<h2 class="comment-heading">Add a New Comment</h2>
+<form action="{% url 'blog:post_comment' post.id %}" method="post" class="comment-form">
     {% csrf_token %}
-    <p><input type="submit" value="Add Comment"></p>
+    {% for field in form %}
+        <div class="form-group my-div">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+                <div class="error text-danger">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
 </form>
